@@ -5,6 +5,8 @@ const app = express();
 const HomeRoutes = require("./src/routes/home");
 const ProductRoutes = require("./src/routes/product");
 const OrderRoutes = require("./src/routes/order");
+const LoginRoutes = require("./src/routes/login");
+const RegisterRoutes = require("./src/routes/register");
 
 //settings
 app.set("appName", "Aurea Tech");
@@ -17,6 +19,8 @@ app.use(morgan("dev"));
 app.use(HomeRoutes);
 app.use(ProductRoutes);
 app.use(OrderRoutes);
+app.use(LoginRoutes);
+app.use(RegisterRoutes);
 
 //server running
 app.listen(app.get("port"));
