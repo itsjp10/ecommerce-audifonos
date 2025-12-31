@@ -1,13 +1,12 @@
-const express = require("express");
-const morgan = require("morgan");
+import express from "express";
+import morgan from "morgan";
 
 const app = express();
-const HomeRoutes = require("./src/routes/home");
-const ProductRoutes = require("./src/routes/product");
-const OrderRoutes = require("./src/routes/order");
-const LoginRoutes = require("./src/routes/login");
-const RegisterRoutes = require("./src/routes/register");
-
+import HomeRoutes from "./src/routes/home.js";
+import ProductRoutes from "./src/routes/product.js";
+import OrderRoutes from "./src/routes/order.js";
+import LoginRoutes from "./src/routes/login.js";
+import RegisterRoutes from "./src/routes/register.js";
 //settings
 app.set("appName", "Aurea Tech");
 app.set("port", 3000);
