@@ -1,16 +1,27 @@
 import { Router } from "express";
 import { prisma } from "../lib/prisma.js";
+import bcrypt from "bcryptjs";
 
 const router = Router();
 
 router.post("/register", async (req, res) => {
-  const { username, email, password } = req.body;
+  //Obtener los datos del req
+  const { email, password } = req.body;
+
+  //Validaciones
+  if (!email || !password) {
+    return res.status(400).send("Faltan datos obligatorios");
+  }
+
+  //hash de la contraseña
+  const hashedPassword = bcrypt.hashSync(password, 10)
+  
+  //Insertar en la base de datos
   try {
     const newUser = await prisma.user.create({
       data: {
-        username,
         email,
-        password,
+        password: hashedPassword, //Se guarda la contraseña hasheada
       },
     });
     console.log("Usuario creado", newUser);
