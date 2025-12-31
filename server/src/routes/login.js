@@ -6,5 +6,5 @@ router.post("/login", (req, res) => {}); //acceder
 router.post("/logout", (req, res) => {});
 router.get("/protected", (req, res) => {});
 
-module.exports = router;
+export default router;
  

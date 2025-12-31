@@ -8,4 +8,4 @@ router.all("/about", (req, res) => {
 });
 router.get("/dashboard", (req, res) => {});
 
-module.exports = router;
+export default router;

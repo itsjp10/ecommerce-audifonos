@@ -1,5 +1,5 @@
 import { Router } from "express";
-import prisma from "../lib/prisma";
+import { prisma } from "../lib/prisma.js";
 
 const router = Router();
 
@@ -21,4 +21,4 @@ router.post("/register", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

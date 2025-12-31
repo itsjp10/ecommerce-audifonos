@@ -10,4 +10,4 @@ router.post("/product", (req, res) => {
   res.send("Post en products");
 });
 
-module.exports = router;
+export default router;

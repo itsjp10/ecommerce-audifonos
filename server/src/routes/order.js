@@ -19,4 +19,4 @@ router.put("/order/:id/tracking", (req, res) => {
   res.send(`Actualizando el tracking ${req.body.tracking} de la orden ${req.params.id}`);
 });
 
-module.exports = router;
+export default router;
