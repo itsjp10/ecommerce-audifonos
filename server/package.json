@@ -20,6 +20,9 @@
     "morgan": "^1.10.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.11"
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^25.0.3",
+    "nodemon": "^3.1.11",
+    "prisma": "^7.2.0"
   }
 }

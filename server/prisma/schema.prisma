@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  role      Role     @default(CLIENT)
+  orders    Order[]
+  createdAt DateTime @default(now())
+}
+
+model Order {
+  id        String      @id @default(uuid())
+  userId    String      
+  quantity  Int
+  unitPrice Float
+  total     Float
+  status    OrderStatus @default(PENDING)
+  tracking  String?
+  payment   Payment?
+  createdAt DateTime    @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Payment {
+  id        String        @id @default(uuid())
+  orderId   String        @unique
+  provider  String // "WOMPI"
+  reference String
+  status    PaymentStatus
+  amount    Float
+  createdAt DateTime      @default(now())
+
+  order Order @relation(fields: [orderId], references: [id])
+}
+
+model Inventory {
+  id        String   @id @default(uuid())
+  stock     Int 
+  reserved  Int
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  CLIENT
+  ADMIN
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  APPROVED
+  DECLINED
+  ERROR
+}
