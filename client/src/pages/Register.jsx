@@ -2,12 +2,13 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { register } from "../services/auth";
 
-export default function Register({ onRegisterSuccess }) {
+export default function Register({}) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   const navigate = useNavigate(); //para navegar a distintas páginas
 
@@ -20,7 +21,7 @@ export default function Register({ onRegisterSuccess }) {
       const res = await register({ email, password });
 
       if (res.success) {
-        // TODO: mostrarle al usuario que el usuario fue creado
+        setSuccess(true);
       } else {
         setError(res.message || "No se pudo");
       }
@@ -33,6 +34,14 @@ export default function Register({ onRegisterSuccess }) {
 
   return (
     <div className="auth-page">
+      {success && (
+        <div className="auth-success">
+          <span>Cuenta creada correctamente.</span>
+          <Link to="/login" className="success-link">
+            Ir a iniciar sesión
+          </Link>
+        </div>
+      )}
       <div className="auth-card">
         <h2 className="auth-title">Crear cuenta</h2>
         <p className="auth-sub">Regístrate para acceder a la tienda</p>
