@@ -11,6 +11,16 @@ export async function login(data) {
   return res.json();
 }
 
+export async function register(data) {
+  const res = await fetch(`${API}/register`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },    
+    credentials: "include", //para enviar cookies
+    body: JSON.stringify(data)
+  });
+  return res.json();
+}
+
 export async function getSession() {
   const res = await fetch(`${API}/me`, {
     method: "GET",

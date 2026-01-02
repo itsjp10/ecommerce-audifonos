@@ -45,7 +45,7 @@ router.post("/login", async (req, res) => {
       maxAge: 3600000, //1 hora
     })
     .status(200)
-    .json({ message: "Login successful"});
+    .json({ authenticated: true});
 }); //acceder
 router.post("/logout", (req, res) => {});
 router.get("/protected", (req, res) => {});
