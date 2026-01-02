@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { getSession } from "./services/auth";
+import { getSession, logOut } from "./services/auth";
 
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -39,8 +39,8 @@ function App() {
     loadSession();
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
+  const handleLogout = async () => {
+    await logOut(); // se borra la cookie en el backend
     setIsAuthenticated(false);
     setUser(null);
   };
@@ -59,9 +59,7 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={
-            isAuthenticated ? <Navigate to="/home" /> : <Navigate to="/login" />
-          }
+          element={<Navigate to={isAuthenticated ? "/home" : "/login"} />}
         />
 
         <Route
@@ -89,11 +87,9 @@ function App() {
         <Route
           path="/home"
           element={
-            isAuthenticated ? (
-              <Home user={user} onLogout={handleLogout} />
-            ) : (
-              <Navigate to="/login" />
-            )
+            isAuthenticated
+              ? <Home user={user} onLogout={handleLogout} />
+              : <Navigate to="/login" />
           }
         />
       </Routes>

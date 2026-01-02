@@ -45,9 +45,12 @@ router.post("/login", async (req, res) => {
       maxAge: 3600000, //1 hora
     })
     .status(200)
-    .json({ authenticated: true});
+    .json({ authenticated: true });
 }); //acceder
-router.post("/logout", (req, res) => {});
+
+router.post("/logout", (req, res) => {
+  res.clearCookie("access_token").status(200).json({ success: true });
+});
 router.get("/protected", (req, res) => {});
 
 export default router;

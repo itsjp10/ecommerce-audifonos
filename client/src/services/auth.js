@@ -33,3 +33,13 @@ export async function getSession() {
 
   return res.json();
 }
+
+export async function logOut(data) {
+  const res = await fetch(`${API}/logout`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },    
+    credentials: "include", //para enviar cookies
+    body: JSON.stringify(data)
+  });
+  return res.json();
+}
