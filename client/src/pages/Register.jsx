@@ -12,21 +12,7 @@ export default function Register({ onAuth, switchToLogin }) {
     setLoading(true)
     setError(null)
     try {
-      // TODO: reemplazar con la petición real al backend
-      // const res = await fetch('/api/register', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ name, email, password })
-      // })
-      // const data = await res.json()
-      // if (!res.ok) throw new Error(data.message || 'Error')
-      // const token = data.token
-
-      // Simulación temporal (remover en producción)
-      await new Promise(r => setTimeout(r, 800))
-      const token = 'demo-token-register'
-
-      onAuth(token)
+      console.log("just the register test---")
     } catch (err) {
       setError(err.message || 'Error en el registro')
     } finally {

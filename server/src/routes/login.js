@@ -1,11 +1,11 @@
 import { Router } from "express";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 import { prisma } from "../lib/prisma.js";
 import bcrypt from "bcryptjs";
 import { env } from "process";
 
 const router = Router();
-const SECRET_KEY = env.JWT_SECRET
+const SECRET_KEY = env.JWT_SECRET;
 
 router.post("/login", async (req, res) => {
   //Obtener los datos del req
@@ -26,18 +26,25 @@ router.post("/login", async (req, res) => {
   const isValid = await bcrypt.compare(password, user.password);
   if (!isValid) return res.status(400).send("Invalid credentials");
 
-  const { password: _password, ...userSafe} = user;
+  const { password: _password, ...userSafe } = user;
 
   //creamos el jwt y es lo que vamos a enviar cuando el usuario esté logueado
-  const token = jwt.sign({id: userSafe.id, email: userSafe.email}, SECRET_KEY, {
-    expiresIn: "1h"
-  })
+  const token = jwt.sign(
+    { id: userSafe.id, email: userSafe.email },
+    SECRET_KEY,
+    {
+      expiresIn: "1h",
+    }
+  );
 
-  res.status(200).json({
-    message: "login exitoso",
-    user: userSafe,
-    token
-  })
+  res
+    .cookie("access_token", token, {
+      httpOnly: true, //evita acceso desde JS
+      secure: env.NODE_ENV === "production", //solo en https
+      sameSite: "lax", //protección CSRF
+      maxAge: 3600000, //1 hora
+    })
+    .status(200)
 }); //acceder
 router.post("/logout", (req, res) => {});
 router.get("/protected", (req, res) => {});

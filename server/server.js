@@ -1,5 +1,7 @@
 import express from "express";
 import morgan from "morgan";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 
 const app = express();
 import HomeRoutes from "./src/routes/home.js";
@@ -12,8 +14,15 @@ app.set("appName", "Aurea Tech");
 app.set("port", 3000);
 
 //middlewares
-app.use(express.json())
+app.use(express.json());
 app.use(morgan("dev"));
+app.use(cookieParser());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+); //Habilitar CORS para todas las rutas
 
 app.use(HomeRoutes);
 app.use(ProductRoutes);
