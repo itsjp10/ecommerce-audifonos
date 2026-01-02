@@ -12,9 +12,15 @@ router.post("/register", async (req, res) => {
   if (!email || !password) {
     return res.status(400).send("Faltan datos obligatorios");
   }
+  const user = await prisma.user.findUnique({
+    where: {
+      email: email
+    }
+  })
+  if (user) return res.status(400).send("User already exists")
 
   //hash de la contraseña
-  const hashedPassword = bcrypt.hashSync(password, 10)
+  const hashedPassword = await bcrypt.hash(password, 10) //usamos await para que no bloquee el thread principal
   
   //Insertar en la base de datos
   try {
