@@ -29,11 +29,14 @@ router.post("/login", async (req, res) => {
   const { password: _password, ...userSafe} = user;
 
   //creamos el jwt y es lo que vamos a enviar cuando el usuario esté logueado
-  const token = jwt.sign({id: userSafe.id, email: userSafe.email}, SECRET_KEY)
+  const token = jwt.sign({id: userSafe.id, email: userSafe.email}, SECRET_KEY, {
+    expiresIn: "1h"
+  })
 
   res.status(200).json({
     message: "login exitoso",
-    user: userSafe
+    user: userSafe,
+    token
   })
 }); //acceder
 router.post("/logout", (req, res) => {});
