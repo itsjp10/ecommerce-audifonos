@@ -13,8 +13,11 @@ export async function login(data) {
 
 export async function getSession() {
   const res = await fetch(`${API}/me`, {
+    method: "GET",
     credentials: "include"
   });
+
+  console.log("getSession response:", res);
 
   if (!res.ok) return { authenticated: false };
 

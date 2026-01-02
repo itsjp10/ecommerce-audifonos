@@ -9,6 +9,7 @@ import ProductRoutes from "./src/routes/product.js";
 import OrderRoutes from "./src/routes/order.js";
 import LoginRoutes from "./src/routes/login.js";
 import RegisterRoutes from "./src/routes/register.js";
+import authRoutes from "./src/routes/auth.js";
 //settings
 app.set("appName", "Aurea Tech");
 app.set("port", 3000);
@@ -29,6 +30,7 @@ app.use(ProductRoutes);
 app.use(OrderRoutes);
 app.use(LoginRoutes);
 app.use(RegisterRoutes);
+app.use(authRoutes);
 
 //server running
 app.listen(app.get("port"));
