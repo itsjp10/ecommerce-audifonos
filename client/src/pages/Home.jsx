@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import "../styles/home.css";
+import { User, ShoppingCart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Home({ onLogout }) {
   const [loading, setLoading] = useState(false);
@@ -10,6 +12,8 @@ export default function Home({ onLogout }) {
     "ENVÍO GRATIS A TODA COLOMBIA",
     "PAGO CONTRA ENTREGA",
   ];
+
+  const navigate = useNavigate();
 
   const handleClick = async () => {
     setLoading(true);
@@ -33,11 +37,25 @@ export default function Home({ onLogout }) {
         <div className="banner">
           <p>{bannerMessage}</p>
         </div>
+        <nav className="nav-links">
+          <h1 className="logoAurea" onClick={() => navigate("/")}>
+            Aurea<strong>Tech</strong>
+          </h1>
+          <ul className="nav-icons">
+            <li>
+              <User width={20} height={20} />
+            </li>
+            <li>
+              <ShoppingCart width={20} height={20} />
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <main className="home-content">
         <button className="logout-btn" onClick={handleClick} disabled={loading}>
           {loading ? "Cerrando..." : "Cerrar sesión"}
         </button>
-      </header>
-      <main className="home-content"></main>
+      </main>
     </div>
   );
 }
