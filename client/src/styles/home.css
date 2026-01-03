@@ -15,19 +15,14 @@ body {
 /*Estilos de home page*/
 
 .home-page {
-  position: fixed;
-  display: flex;
-  inset: 0;
   background: #fbd5e5;
-  z-index: 10;
   color: #1a1a1a;
-  flex-direction: column;
-
+  display: flex;
+    flex-direction: column;
   .home-header {
     gap: 0;
     display: flex;
     flex-direction: column;
-    position: fixed;
     top: 0;
     width: 100%;    
 
