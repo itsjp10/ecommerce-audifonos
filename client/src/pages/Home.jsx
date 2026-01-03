@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 export default function Home({ onLogout }) {
   const [loading, setLoading] = useState(false);
   const [bannerMessage, setBannerMessage] = useState("COMPRA HOY, RECIBE HOY");
+  const [cantidad, setCantidad] = useState(0);  
   const messages = [
     "COMPRA HOY, RECIBE HOY",
     "¡DESCUENTO DEL 20%!",
@@ -46,7 +47,10 @@ export default function Home({ onLogout }) {
               <User width={20} height={20} />
             </li>
             <li>
-              <ShoppingCart width={20} height={20} />
+              <li className="cart-icon">
+                <ShoppingCart width={20} height={20} />
+                <span className="cart-badge">{cantidad}</span>
+              </li>
             </li>
           </ul>
         </nav>
