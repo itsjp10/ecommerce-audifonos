@@ -1,65 +1,92 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "../styles/home.css";
-import { User, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/header";
+
+import imgHero from "../images/heroimg.png";
+import imgHero_2 from "../images/audifonos-2.png";
+import imgHero_3 from "../images/audifonos-3.webp";
 
 export default function Home({ onLogout }) {
   const [loading, setLoading] = useState(false);
-  const [bannerMessage, setBannerMessage] = useState("COMPRA HOY, RECIBE HOY");
-  const [cantidad, setCantidad] = useState(0);  
-  const messages = [
-    "COMPRA HOY, RECIBE HOY",
-    "¡DESCUENTO DEL 20%!",
-    "ENVÍO GRATIS A TODA COLOMBIA",
-    "PAGO CONTRA ENTREGA",
-  ];
+  const [cantidad, setCantidad] = useState(0);
 
-  const navigate = useNavigate();
+  const images = [imgHero, imgHero_2, imgHero_3];
+  const [activeImage, setActiveImage] = useState(imgHero);
+
+  const imageRef = useRef(null);
 
   const handleClick = async () => {
     setLoading(true);
     await onLogout();
   };
 
-  useEffect(() => {
-    let index = 0;
+  const handleZoom = (e) => {
+    const img = imageRef.current;
+    const { left, top, width, height } = img.getBoundingClientRect();
 
-    const interval = setInterval(() => {
-      index = (index + 1) % messages.length;
-      setBannerMessage(messages[index]);
-    }, 5000);
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
 
-    return () => clearInterval(interval); // limpieza
-  }, []);
+    img.style.transformOrigin = `${x}% ${y}%`;
+    img.style.transform = "scale(2.2)";
+  };
+
+  const resetZoom = () => {
+    const img = imageRef.current;
+    img.style.transformOrigin = "center";
+    img.style.transform = "scale(1)";
+  };
 
   return (
     <div className="home-page">
-      <header className="home-header">
-        <div className="banner">
-          <p>{bannerMessage}</p>
-        </div>
-        <nav className="nav-links">
-          <h1 className="logoAurea" onClick={() => navigate("/")}>
-            Aurea<strong>Tech</strong>
-          </h1>
-          <ul className="nav-icons">
-            <li>
-              <User width={20} height={20} />
-            </li>
-            <li>
-              <li className="cart-icon">
-                <ShoppingCart width={20} height={20} />
-                <span className="cart-badge">{cantidad}</span>
-              </li>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <main className="home-content">
+      <Header cantidad={cantidad} />
+      <main className="home-page-content">
+        <section className="info-purchase-section">
+          <article className="info-section">
+            <div className="product-gallery">
+              <div
+                className="main-image zoom-container"
+                onMouseMove={handleZoom}
+                onMouseLeave={resetZoom}
+              >
+                <img
+                  ref={imageRef}
+                  src={activeImage}
+                  alt="G502 HERO"
+                  className="zoom-image"
+                />
+              </div>
+
+              <div className="thumbs">
+                {images.map((img, index) => (
+                  <img
+                    key={index}
+                    src={img}
+                    onClick={() => setActiveImage(img)}
+                    className={activeImage === img ? "active" : ""}
+                    alt=""
+                  />
+                ))}
+              </div>
+            </div>
+          </article>
+          <article className="purchase-section"></article>
+        </section>
+      </main>
+      <footer>
+        <h1>HUAWEI FreeClip</h1>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa autem
+          ipsa earum iste adipisci dolores magnam consequuntur! Accusamus
+          repellendus, cupiditate, voluptatibus provident, unde nisi nesciunt
+          vel officiis quas quos laudantium!
+        </p>
+        <img src={imgHero} alt="" />
         <button className="logout-btn" onClick={handleClick} disabled={loading}>
           {loading ? "Cerrando..." : "Cerrar sesión"}
         </button>
-      </main>
+      </footer>
     </div>
   );
 }
