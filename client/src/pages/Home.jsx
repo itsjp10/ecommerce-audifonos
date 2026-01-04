@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import "../styles/home.css";
-import { useNavigate } from "react-router-dom";
+import { User, ShoppingCart } from "lucide-react";
 import Header from "../components/header";
 
 import imgHero from "../images/heroimg.png";
@@ -71,7 +71,24 @@ export default function Home({ onLogout }) {
               </div>
             </div>
           </article>
-          <article className="purchase-section"></article>
+          <article className="purchase-section">
+            <div className="info-purchase">
+              <h1 className="title-purchase">HUAWEI FreeClip</h1>
+              <p className="desc-purchase">Auriculares inalámbricos open-ear</p>
+              <p className="precio-purchase">$546.000</p>
+            </div>
+            <div className="carrito-section">
+              <span>En stock. Listo para envío.</span>
+              <button className="añadir-carrito">
+                <ShoppingCart width={17} height={17} /> Añadir al carrito
+              </button>
+            </div>
+            <p className="desc-product">
+              Diseñados para una experiencia auditiva avanzada. HUAWEI FreeClip
+              ofrecen un diseño abierto innovador, sonido de alta fidelidad,
+              llamadas nítidas y comodidad ultraligera para todo el día.
+            </p>
+          </article>
         </section>
       </main>
       <footer>
