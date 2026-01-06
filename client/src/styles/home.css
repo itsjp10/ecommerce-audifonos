@@ -2,6 +2,7 @@
   --color-primario: #fbd5e5; /* Un azul vibrante */
   --color-secundario: #d5fbeb; /* Un gris neutro */
   --color-texto-main: #2f3132;
+  --color-badge: #9274c7;
 }
 
 /*Resetear todos los estilos*/
@@ -426,7 +427,7 @@ body {
 }
 
 .duration-img-decoration{
-  width: 70%;
+  width: 65%;
   position: absolute;
 }
 
@@ -434,6 +435,22 @@ body {
   width: 100%; 
   max-width: 100%;
   height: auto;
+}
+
+/*for hanging hours*/
+.base-badge{
+  position: relative;
+}
+
+.hours-badge{
+  top: 0;
+  position: absolute;
+  color: var(--color-badge);
+  font-size: 36px;
+
+  span{
+    font-size: 60px;
+  }
 }
 
 

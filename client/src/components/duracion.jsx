@@ -21,7 +21,11 @@ export default function Duracion() {
           </p>
         </article>
         <article className="duration-img">
-          <img className="duration-img-base" src={arco} alt="" />
+          <div className="base-badge">
+            <img className="duration-img-base" src={arco} alt="" />
+            <h1 className="hours-badge"><span>36</span> horas</h1>
+          </div>
+
           <div className="duration-img-decoration">
             <img className="duration-img-content" src={imgHero} alt="" />
           </div>
