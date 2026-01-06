@@ -4,6 +4,7 @@ import Header from "../components/header";
 import Hero from "../components/hero";
 import Info from "../components/Info";
 import Modelo from "../components/modelo";
+import Duracion from "../components/duracion";
 
 export default function Home({ onLogout }) {
   const [loading, setLoading] = useState(false);
@@ -21,6 +22,7 @@ export default function Home({ onLogout }) {
         <Hero cantidad={cantidad} setCantidad={setCantidad} />
         <Info />
         <Modelo />
+        <Duracion />
       </main>
       <footer>
         <button className="logout-btn" onClick={handleClick} disabled={loading}>
