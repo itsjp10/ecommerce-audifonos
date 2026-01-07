@@ -51,6 +51,5 @@ router.post("/login", async (req, res) => {
 router.post("/logout", (req, res) => {
   res.clearCookie("access_token").status(200).json({ success: true });
 });
-router.get("/protected", (req, res) => {});
 
 export default router;

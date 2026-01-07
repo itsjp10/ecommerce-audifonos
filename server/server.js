@@ -10,6 +10,9 @@ import OrderRoutes from "./src/routes/order.js";
 import LoginRoutes from "./src/routes/login.js";
 import RegisterRoutes from "./src/routes/register.js";
 import authRoutes from "./src/routes/auth.js";
+
+import { requireAuth } from "./src/middlewares/requireAuth.js";
+
 //settings
 app.set("appName", "Aurea Tech");
 app.set("port", 3000);
@@ -24,12 +27,13 @@ app.use(
     credentials: true,
   })
 ); //Habilitar CORS para todas las rutas
+app.use(RegisterRoutes);
+app.use(LoginRoutes);
 
+app.use(requireAuth); //se protegen las rutas con este middleware de autenticación (aplica para las rutas de abajo)
 app.use(HomeRoutes);
 app.use(ProductRoutes);
 app.use(OrderRoutes);
-app.use(LoginRoutes);
-app.use(RegisterRoutes);
 app.use(authRoutes);
 
 //server running
