@@ -10,6 +10,7 @@ import OrderRoutes from "./src/routes/order.js";
 import LoginRoutes from "./src/routes/login.js";
 import RegisterRoutes from "./src/routes/register.js";
 import authRoutes from "./src/routes/auth.js";
+import cartRoutes from "./src/routes/cart.js";
 
 import { requireAuth } from "./src/middlewares/requireAuth.js";
 
@@ -35,6 +36,7 @@ app.use(HomeRoutes);
 app.use(ProductRoutes);
 app.use(OrderRoutes);
 app.use(authRoutes);
+app.use(cartRoutes);
 
 //server running
 app.listen(app.get("port"));
