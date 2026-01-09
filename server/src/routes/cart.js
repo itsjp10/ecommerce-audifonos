@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { prisma } from "../lib/prisma.js";
+import { error } from "console";
 
 const router = Router();
 
@@ -81,9 +82,66 @@ router.post("/cart", async (req, res) => {
 });
 
 //ruta para actualizar la cantidad de un producto en un carrito
-router.put("/cart:productId", (req, res) => {
-  //TODO: queda pendiente actualizar cantidad de un producto en el carrito basado en un id dada.
-  // Por ahora no se tiene esta función en el frontend
+router.put("/cart/:productId", async (req, res) => {
+  const userId = req.user.id;
+  const productId = req.params.productId;
+  const { quantity } = req.body;
+
+  if (quantity == null || quantity < 0) {
+    return res.status(400).json({
+      error: "Cantidad invalida",
+    });
+  }
+
+  const cart = await prisma.cart.findUnique({
+    where: { userId },
+  });
+
+  if (!cart) {
+    return res.status(400).json({
+      error: "Este usuario no tiene carrito",
+    });
+  }
+
+  const product = await prisma.product.findUnique({
+    where: { id: productId },
+  });
+
+  if (!product)
+    return res.status(400).json({ error: "Este producto no existe" });
+
+  const item = await prisma.cartItem.findUnique({
+    where: {
+      cartId_productId: {
+        cartId: cart.id,
+        productId,
+      },
+    },
+  });
+
+  //Si entra en el if siguiente significa que user tiene carrito, el product existe pero no está en el carrito del cliente
+  if (!item)
+    return res.status(400).json({ error: "Este item no existe en el carrito" });
+
+  //si la cantidad es 0, entonces se elimina el producto del
+  if (quantity === 0) {
+    await prisma.cartItem.delete({
+      where: { id: item.id },
+    });
+  } else {
+    //si la cantidad es mayor a 0, entonces se actualiza la cantidad
+    await prisma.cartItem.update({
+      where: { id: item.id },
+      data: { quantity },
+    });
+  }
+
+  const updatedCart = await prisma.cart.findUnique({
+    where: { userId },
+    include: { items: { include: { product: true } } },
+  });
+
+  res.json(updatedCart.items)
 });
 
 //eliminar un producto del carrito del cliente
@@ -119,7 +177,6 @@ router.delete("/cart/:productId", async (req, res) => {
   });
 
   res.json(updatedCart.items);
-
 });
 
 export default router;
