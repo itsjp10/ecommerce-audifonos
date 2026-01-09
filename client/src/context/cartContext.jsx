@@ -14,6 +14,10 @@ export function CartProvider({ children }) {
         credentials: "include",
       });
       const data = await res.json();
+      if (!Array.isArray(data)) {
+        console.error("Respuesta inválida del carrito:", data);
+        return;
+      }
       setCart(data);
     } catch (error) {
       console.error("Error cargando carrito:", error);
@@ -36,6 +40,10 @@ export function CartProvider({ children }) {
     });
 
     const data = await res.json();
+    if (!Array.isArray(data)) {
+      console.error("Respuesta inválida del carrito:", data);
+      return;
+    }
     setCart(data);
   };
 
@@ -49,6 +57,10 @@ export function CartProvider({ children }) {
     });
 
     const data = await res.json();
+    if (!Array.isArray(data)) {
+      console.error("Respuesta inválida del carrito:", data);
+      return;
+    }
     setCart(data);
   };
 
@@ -60,6 +72,10 @@ export function CartProvider({ children }) {
     });
 
     const data = await res.json();
+    if (!Array.isArray(data)) {
+      console.error("Respuesta inválida del carrito:", data);
+      return;
+    }
     setCart(data);
   };
 

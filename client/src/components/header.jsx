@@ -13,7 +13,7 @@ export default function Header({}) {
   ];
 
   const { cart } = useCart();
-  const totalItems = cart.reduce((sum = 0, item) => sum + item.quantity, 0);
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   useEffect(() => {
     let index = 0;

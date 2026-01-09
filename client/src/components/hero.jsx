@@ -3,8 +3,15 @@ import { Trash } from "lucide-react";
 import imgHero from "../images/heroimg.png";
 import imgHero_2 from "../images/audifonos-2.png";
 import imgHero_3 from "../images/audifonos-3.webp";
+import { useCart } from "../context/cartContext";
 
-export default function Hero({ cantidad, setCantidad}) {
+export default function Hero({}) {
+  const { cart, addToCart, updateQuantity, removeFromCart } = useCart();
+
+  const PRODUCT_ID = "cf58ece2-13e1-46c8-b1d0-5c635ba43bef"; //TODO: en produccion debe ir incluido con fotos y descripcion del name
+  const item = cart.find((i) => i.product.id === PRODUCT_ID);
+  const cantidad = item ? item.quantity : 0;
+
   const images = [imgHero, imgHero_2, imgHero_3];
   const [activeImage, setActiveImage] = useState(imgHero);
 
@@ -67,30 +74,45 @@ export default function Hero({ cantidad, setCantidad}) {
           <span>En stock. Listo para envío.</span>
           <div className="carrito-controls">
             {cantidad === 0 && (
-              <button className="añadir-carrito" onClick={() => setCantidad(1)}>
+              <button
+                className="añadir-carrito"
+                onClick={() => addToCart(PRODUCT_ID, 1)}
+              >
                 Añadir al carrito
               </button>
             )}
 
             {cantidad === 1 && (
               <div className="cantidad-control">
-                <button onClick={() => setCantidad(0)}>
+                <button onClick={() => removeFromCart(PRODUCT_ID)}>
                   <Trash width={15} height={15} />
                 </button>
 
                 <span>{cantidad}</span>
 
-                <button onClick={() => setCantidad(cantidad + 1)}>+</button>
+                <button
+                  onClick={() => updateQuantity(PRODUCT_ID, cantidad + 1)}
+                >
+                  +
+                </button>
               </div>
             )}
 
             {cantidad > 1 && (
               <div className="cantidad-control">
-                <button onClick={() => setCantidad(cantidad - 1)}>-</button>
+                <button
+                  onClick={() => updateQuantity(PRODUCT_ID, cantidad - 1)}
+                >
+                  -
+                </button>
 
                 <span>{cantidad}</span>
 
-                <button onClick={() => setCantidad(cantidad + 1)}>+</button>
+                <button
+                  onClick={() => updateQuantity(PRODUCT_ID, cantidad + 1)}
+                >
+                  +
+                </button>
               </div>
             )}
           </div>
