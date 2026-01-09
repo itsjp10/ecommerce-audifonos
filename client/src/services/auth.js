@@ -1,4 +1,4 @@
-// services/auth.service.js
+// services/auth.js
 import { API } from "./api";
 
 export async function login(data) {
