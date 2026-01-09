@@ -5,6 +5,7 @@ import { getSession, logOut } from "./services/auth";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import Cart from "./pages/Cart";
 
 import "./App.css";
 import "./styles/auth.css";
@@ -89,6 +90,15 @@ function App() {
           element={
             isAuthenticated
               ? <Home user={user} onLogout={handleLogout} />
+              : <Navigate to="/login" />
+          }
+        />
+
+        <Route
+          path="/cart"
+          element={
+            isAuthenticated
+              ? <Cart user={user} onLogout={handleLogout} />
               : <Navigate to="/login" />
           }
         />

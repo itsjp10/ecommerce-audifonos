@@ -41,7 +41,7 @@ export default function Header({}) {
           <li>
             <User width={20} height={20} />
           </li>
-          <li className="cart-icon">
+          <li className="cart-icon" onClick={() => navigate("/cart")}>
             <ShoppingCart width={20} height={20} />
             <span className="cart-badge">{totalItems}</span>
           </li>

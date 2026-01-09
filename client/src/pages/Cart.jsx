@@ -1,12 +1,8 @@
 import { useState } from "react";
 import "../styles/home.css";
 import Header from "../components/header";
-import Hero from "../components/hero";
-import Info from "../components/Info";
-import Modelo from "../components/modelo";
-import Duracion from "../components/duracion";
 
-export default function Home({ onLogout }) {
+export default function Cart({ onLogout }) {
   const [loading, setLoading] = useState(false);
 
   const handleClick = async () => {
@@ -18,10 +14,7 @@ export default function Home({ onLogout }) {
     <div className="home-page">
       <Header/>
       <main className="home-page-content">
-        <Hero/>
-        <Info />
-        <Modelo />
-        <Duracion />
+        <h1>Here will be all the products in the cart</h1>
       </main>
       <footer>
         <button className="logout-btn" onClick={handleClick} disabled={loading}>
