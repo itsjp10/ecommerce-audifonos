@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { User, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/cartContext";
 
-export default function Header({ cantidad }) {
+export default function Header({}) {
   const [bannerMessage, setBannerMessage] = useState("COMPRA HOY, RECIBE HOY");
   const messages = [
     "COMPRA HOY, RECIBE HOY",
@@ -10,6 +11,9 @@ export default function Header({ cantidad }) {
     "ENVÍO GRATIS A TODA COLOMBIA",
     "PAGO CONTRA ENTREGA",
   ];
+
+  const { cart } = useCart();
+  const totalItems = cart.reduce((sum = 0, item) => sum + item.quantity, 0);
 
   useEffect(() => {
     let index = 0;
@@ -39,7 +43,7 @@ export default function Header({ cantidad }) {
           </li>
           <li className="cart-icon">
             <ShoppingCart width={20} height={20} />
-            <span className="cart-badge">{cantidad}</span>
+            <span className="cart-badge">{totalItems}</span>
           </li>
         </ul>
       </nav>

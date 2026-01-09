@@ -17,7 +17,7 @@ export default function Home({ onLogout }) {
 
   return (
     <div className="home-page">
-      <Header cantidad={cantidad} />
+      <Header/>
       <main className="home-page-content">
         <Hero cantidad={cantidad} setCantidad={setCantidad} />
         <Info />
