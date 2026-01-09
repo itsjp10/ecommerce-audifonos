@@ -39,7 +39,9 @@ router.post("/cart", async (req, res) => {
   });
 
   if (!product) {
-    return res.status(400).json({ error: "Producto que se intenta colocar al carrito no existe" });
+    return res
+      .status(400)
+      .json({ error: "Producto que se intenta colocar al carrito no existe" });
   }
 
   const existingItem = await prisma.cartItem.findUnique({
@@ -78,8 +80,46 @@ router.post("/cart", async (req, res) => {
   res.json(updatedCart.items);
 });
 
-router.put("/cart:productId", (req, res) => {});
+//ruta para actualizar la cantidad de un producto en un carrito
+router.put("/cart:productId", (req, res) => {
+  //TODO: queda pendiente actualizar cantidad de un producto en el carrito basado en un id dada.
+  // Por ahora no se tiene esta función en el frontend
+});
 
-router.delete("/cart:productId", (req, res) => {});
+//eliminar un producto del carrito del cliente
+router.delete("/cart/:productId", async (req, res) => {
+  const userId = req.user.id;
+  const productId = req.params.productId;
+
+  const product = await prisma.product.findUnique({
+    where: { id: productId },
+  });
+
+  if (!product)
+    //si el product id no existe no se puede eliminar
+    return res.status(400).json({ error: "El producto a eliminar no existe" });
+
+  const cart = await prisma.cart.findUnique({
+    where: { userId },
+  });
+
+  //error handler para saber si el usuario tiene carrito
+  if (!cart)
+    return res.status(400).json({ error: "Este usuario no tiene carrito" });
+
+  //borramos todos los elementos con id del carrito
+  await prisma.cartItem.deleteMany({
+    where: { cartId: cart.id, productId },
+  });
+
+  //ahora traemos el carrito actualizado de la base de datos
+  const updatedCart = await prisma.cart.findUnique({
+    where: { userId },
+    include: { items: { include: { product: true } } },
+  });
+
+  res.json(updatedCart.items);
+
+});
 
 export default router;
