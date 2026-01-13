@@ -15,6 +15,10 @@ export default function Cart({ onLogout }) {
     await onLogout();
   };
 
+  const formatPrice = (value) => {
+    return new Intl.NumberFormat("es-CO").format(value);
+  };
+
   return (
     <div className="home-page">
       <Header />
@@ -25,7 +29,7 @@ export default function Cart({ onLogout }) {
             <div className="cart-item-body">
               <div className="cart-item-body-header">
                 <h3 className="item-name">{item.product.name}</h3>
-                <button onClick={() => (removeFromCart(item.product.id))}>
+                <button onClick={() => removeFromCart(item.product.id)}>
                   <Trash2 width={15} height={15} />
                 </button>
               </div>
@@ -48,9 +52,13 @@ export default function Cart({ onLogout }) {
                     <Plus width={15} height={15} />
                   </button>
                 </div>
+                <span>+10 disponibles</span>
               </div>
             </div>
-            <h2 className="cart-item-subtotal">{item.quantity * item.product.price}</h2>
+            <h2 className="cart-item-subtotal">
+              <span>$</span>
+              {formatPrice(item.quantity * item.product.price)}
+            </h2>
           </article>
         ))}
       </main>
