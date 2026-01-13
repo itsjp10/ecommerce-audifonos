@@ -454,3 +454,15 @@ body {
 }
 
 
+/*Estilos para la pagina de cart*/
+.cart-page-content{
+  background-color: white;
+  min-height: 100vh;
+}
+
+.cart-item img{
+  width: 112px;
+  height: auto;
+}
+
+
