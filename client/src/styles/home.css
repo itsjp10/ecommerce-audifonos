@@ -458,8 +458,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: white;
+  background-color: #ededed;
   min-height: 100vh;
+}
+
+.cart-title{
+ font-size: 18px; 
+ font-weight: 600;
 }
 
 .cart-item-img {
@@ -473,6 +478,9 @@ body {
   display: flex;
   justify-content: center;
   gap: 10px;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: white;
 }
 
 .cart-item-body {
@@ -481,6 +489,7 @@ body {
   align-self: self-start;
   gap: 10px;
   flex: 1;
+  margin-top: 4px;
 }
 
 .cart-item-subtotal {
@@ -488,6 +497,7 @@ body {
   text-align: right;      
   font-size: 18px;
   font-weight: 500;
+  margin-top: 4px;
 
   span{
     margin-right: 2px;
@@ -497,7 +507,6 @@ body {
 .cart-item-body-header {
   display: flex;
   justify-content: start;
-  min-width: 400px;
   gap: 12px;
 
   .item-name{

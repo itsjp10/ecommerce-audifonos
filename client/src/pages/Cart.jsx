@@ -23,6 +23,7 @@ export default function Cart({ onLogout }) {
     <div className="home-page">
       <Header />
       <main className="cart-page-content">
+        {cart.length > 0 && <header className="cart-title">Carrito de compras</header>}
         {cart.map((item) => (
           <article className="cart-item" key={item.id}>
             <img className="cart-item-img" src={imgHero} alt="" />
