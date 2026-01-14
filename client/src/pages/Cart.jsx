@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../styles/home.css";
 import Header from "../components/header";
-import EmptyCart from "../components/emptyCart";
+import { EmptyCart, EmptyResumen } from "../components/emptyCart";
 import { useCart } from "../context/cartContext";
 import imgHero from "../images/heroimg.png";
 import { Trash2, Minus, Plus } from "lucide-react";
@@ -33,10 +33,10 @@ export default function Cart({ onLogout }) {
       <main className="cart-page-wrapper">
         <div className="cart-page-content">
           <section className="carrito-section-cart">
+            {cart.length === 0 && <EmptyCart />}
             {cart.length > 0 && (
               <header className="cart-title">Carrito de compras</header>
             )}
-            {cart.length === 0 && <EmptyCart />}
             {cart.map((item) => (
               <article className="cart-item" key={item.id}>
                 <img className="cart-item-img" src={imgHero} alt="" />
@@ -76,30 +76,35 @@ export default function Cart({ onLogout }) {
               </article>
             ))}
           </section>
-          <section className="resumen-compra">
-            <header>Resumen de compra</header>
-            <div className="resumen-compra-body">
-              <div className="productos-precio">
-                <p>Productos ({cantidadItems})</p>
-                <p>
-                  <span>$</span>
-                  {formatPrice(totalPrice)}
-                </p>
-              </div>
-              <div className="envios-precio">
-                <p>Envios (1)</p>
-                <span>gratis</span>
-                {/*TODO: definir como serán los envios, si pagos o gratis con base a qué*/}
-              </div>
-              <div className="total-precio">
-                <h3>Total</h3>
-                <p>
-                  <span>$</span>
-                  {formatPrice(totalPrice)}
-                </p>
-              </div>
-            </div>
-            <button className="checkout-cart-btn">Proceder al pago</button>
+          <section className={`resumen-compra ${cart.length === 0 ? "empty-resumen" : ""}`}>
+            {cart.length > 0 && (
+              <>
+                <header>Resumen de compra</header>
+                <div className="resumen-compra-body">
+                  <div className="productos-precio">
+                    <p>Productos ({cantidadItems})</p>
+                    <p>
+                      <span>$</span>
+                      {formatPrice(totalPrice)}
+                    </p>
+                  </div>
+                  <div className="envios-precio">
+                    <p>Envios (1)</p>
+                    <span>gratis</span>
+                    {/*TODO: definir como serán los envios, si pagos o gratis con base a qué*/}
+                  </div>
+                  <div className="total-precio">
+                    <h3>Total</h3>
+                    <p>
+                      <span>$</span>
+                      {formatPrice(totalPrice)}
+                    </p>
+                  </div>
+                </div>
+                <button className="checkout-cart-btn">Proceder al pago</button>
+              </>
+            )}
+            {cart.length === 0 && <EmptyResumen />}
           </section>
         </div>
       </main>

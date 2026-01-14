@@ -590,6 +590,15 @@ body {
   }
 }
 
+/*Cuando el resumen está vacio entonces se le aplica opacidad al */
+.empty-resumen{
+  opacity: 40%;
+}
+
+.empty-resumen-text{
+  text-align: left;
+}
+
 .resumen-compra-body {
   display: flex;
   flex-direction: column;
