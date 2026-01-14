@@ -79,21 +79,25 @@ export default function Cart({ onLogout }) {
             <div className="resumen-compra-body">
               <div className="productos-precio">
                 <p>Productos ({cantidadItems})</p>
-                <span>$</span>
-                {formatPrice(totalPrice)}
+                <p>
+                  <span>$</span>
+                  {formatPrice(totalPrice)}
+                </p>
               </div>
               <div className="envios-precio">
-                <p>Envios (2)</p>
+                <p>Envios (1)</p>
                 <span>gratis</span>
                 {/*TODO: definir como serán los envios, si pagos o gratis con base a qué*/}
               </div>
               <div className="total-precio">
                 <h3>Total</h3>
-                <span>$</span>
-                {formatPrice(totalPrice)}
+                <p>
+                  <span>$</span>
+                  {formatPrice(totalPrice)}
+                </p>
               </div>
             </div>
-            <button>Proceder al pago</button>
+            <button className="checkout-cart-btn">Proceder al pago</button>
           </section>
         </div>
       </main>
