@@ -1,9 +1,9 @@
 import { useState } from "react";
 import "../styles/home.css";
 import Header from "../components/header";
+import EmptyCart from "../components/emptyCart";
 import { useCart } from "../context/cartContext";
 import imgHero from "../images/heroimg.png";
-import carroVacio from "../images/carro-vacio.png";
 import { Trash2, Minus, Plus } from "lucide-react";
 
 export default function Cart({ onLogout }) {
@@ -36,18 +36,7 @@ export default function Cart({ onLogout }) {
             {cart.length > 0 && (
               <header className="cart-title">Carrito de compras</header>
             )}
-            {cart.length === 0 && (
-              <article className="cart-empty">
-                <div className="cart-empt-img-text-wrapper">
-                  <img src={carroVacio} alt="Carro vacío" />
-                  <div className="cart-empty-text">
-                    <h2>Tu carrito está vacío</h2>
-                    <p>Añade productos para verlos aquí.</p>
-                  </div>
-                </div>
-                <p className="cta-añadir">Ver productos</p>
-              </article>
-            )}
+            {cart.length === 0 && <EmptyCart />}
             {cart.map((item) => (
               <article className="cart-item" key={item.id}>
                 <img className="cart-item-img" src={imgHero} alt="" />
