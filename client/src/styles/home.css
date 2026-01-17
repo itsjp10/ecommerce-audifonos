@@ -638,6 +638,7 @@ body {
 
   cursor: pointer;
   background-color: var(--color-primario);
+  color: #2f3132;
 }
 
 .cart-empty {
