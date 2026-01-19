@@ -2,7 +2,7 @@ import { EmptyResumen } from "../components/emptyCart";
 import { useCart } from "../context/cartContext";
 import { useNavigate } from "react-router-dom";
 
-export default function ResumenCompra({ cta = true}) {
+export default function ResumenCompra({ btnRuta, btnText }) {
   const navigate = useNavigate();
   const { cart } = useCart();
 
@@ -45,14 +45,13 @@ export default function ResumenCompra({ cta = true}) {
               </p>
             </div>
           </div>
-          {cta === true && (
-            <button
-              onClick={() => navigate("/checkout")}
-              className="checkout-cart-btn"
-            >
-              Proceder al pago
-            </button>
-          )}
+
+          <button
+            onClick={() => navigate(btnRuta)}
+            className="checkout-cart-btn"
+          >
+            {btnText}
+          </button>
         </>
       )}
       {cart.length === 0 && <EmptyResumen />}

@@ -78,7 +78,7 @@ export default function Cart({ onLogout }) {
               </article>
             ))}
           </section>
-          <ResumenCompra />
+          <ResumenCompra btnRuta={"/checkout"} btnText={"Proceder al pago"}/>
         </div>
       </main>
       <footer>
