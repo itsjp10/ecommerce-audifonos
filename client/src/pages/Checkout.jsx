@@ -22,7 +22,7 @@ export default function Checkout({ onLogout }) {
           <section className="carrito-section-cart">
             <div>this is section about checkout main</div>
           </section>
-          <ResumenCompra btnRuta={""} btnText={"Pagar con Wompi"}/>
+          <ResumenCompra isCheckout={true}/>
         </div>
       </main>
       <footer>
