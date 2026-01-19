@@ -1,8 +1,10 @@
 import { EmptyResumen } from "../components/emptyCart";
 import { useCart } from "../context/cartContext";
+import { useNavigate } from "react-router-dom";
 
-export default function ResumenCompra() {
-  const { cart} = useCart();
+export default function ResumenCompra({ cta = true}) {
+  const navigate = useNavigate();
+  const { cart } = useCart();
 
   const formatPrice = (value) => {
     return new Intl.NumberFormat("es-CO").format(value);
@@ -10,7 +12,7 @@ export default function ResumenCompra() {
 
   const totalPrice = cart.reduce(
     (sum, item) => sum + item.quantity * item.product.price,
-    0
+    0,
   );
 
   const cantidadItems = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -43,7 +45,14 @@ export default function ResumenCompra() {
               </p>
             </div>
           </div>
-          <button className="checkout-cart-btn">Proceder al pago</button>
+          {cta === true && (
+            <button
+              onClick={() => navigate("/checkout")}
+              className="checkout-cart-btn"
+            >
+              Proceder al pago
+            </button>
+          )}
         </>
       )}
       {cart.length === 0 && <EmptyResumen />}

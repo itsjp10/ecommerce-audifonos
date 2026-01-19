@@ -8,6 +8,7 @@ import imgHero from "../images/heroimg.png";
 import { Trash2, Minus, Plus } from "lucide-react";
 
 export default function Cart({ onLogout }) {
+  
   const [loading, setLoading] = useState(false);
 
   const { cart, updateQuantity, removeFromCart } = useCart();
@@ -23,7 +24,7 @@ export default function Cart({ onLogout }) {
 
   const totalPrice = cart.reduce(
     (sum, item) => sum + item.quantity * item.product.price,
-    0
+    0,
   );
 
   const cantidadItems = cart.reduce((sum, item) => sum + item.quantity, 0);

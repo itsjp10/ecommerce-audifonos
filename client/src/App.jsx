@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 
 import "./App.css";
 import "./styles/auth.css";
@@ -88,18 +89,33 @@ function App() {
         <Route
           path="/home"
           element={
-            isAuthenticated
-              ? <Home user={user} onLogout={handleLogout} />
-              : <Navigate to="/login" />
+            isAuthenticated ? (
+              <Home user={user} onLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
 
         <Route
           path="/cart"
           element={
-            isAuthenticated
-              ? <Cart user={user} onLogout={handleLogout} />
-              : <Navigate to="/login" />
+            isAuthenticated ? (
+              <Cart user={user} onLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route
+          path="/checkout"
+          element={
+            isAuthenticated ? (
+              <Checkout user={user} onLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
       </Routes>
