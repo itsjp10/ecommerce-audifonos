@@ -5,11 +5,12 @@ import ResumenCompra from "../components/resumenCompra";
 import { useCart } from "../context/cartContext";
 
 import { CreditCard } from "lucide-react";
-import Nequi from "../images/nequi_icon.jpeg"
-import Pse from "../images/pse_logo.png"
+import Nequi from "../images/nequi_icon.jpeg";
+import Pse from "../images/pse_logo.png";
 
 export default function Checkout({ onLogout }) {
   const [loading, setLoading] = useState(false);
+  const [seleccionado, setSeleccionado] = useState("");
 
   const { cart } = useCart();
 
@@ -25,16 +26,25 @@ export default function Checkout({ onLogout }) {
         <div className="cart-page-content">
           <section className="carrito-section-cart">
             <header className="payment-methods">
-              <div>
+              <div
+                className={seleccionado === "tarjeta" ? "method-selected" : ""}
+                onClick={() => setSeleccionado("tarjeta")}
+              >
                 <CreditCard />
                 <p>Tarjeta</p>
               </div>
-              <div>
-                <img src={Nequi} alt=""/>
+              <div
+                className={seleccionado === "nequi" ? "method-selected" : ""}
+                onClick={() => setSeleccionado("nequi")}
+              >
+                <img src={Nequi} alt="" />
                 <p>Nequi</p>
               </div>
-              <div>
-                <img src={Pse} alt=""/>
+              <div
+                className={seleccionado === "pse" ? "method-selected" : ""}
+                onClick={() => setSeleccionado("pse")}
+              >
+                <img src={Pse} alt="" />
                 <p>PSE</p>
               </div>
             </header>
