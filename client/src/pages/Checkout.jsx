@@ -4,6 +4,10 @@ import Header from "../components/header";
 import ResumenCompra from "../components/resumenCompra";
 import { useCart } from "../context/cartContext";
 
+import { CreditCard } from "lucide-react";
+import Nequi from "../images/nequi_icon.jpeg"
+import Pse from "../images/pse_logo.png"
+
 export default function Checkout({ onLogout }) {
   const [loading, setLoading] = useState(false);
 
@@ -20,9 +24,22 @@ export default function Checkout({ onLogout }) {
       <main className="cart-page-wrapper">
         <div className="cart-page-content">
           <section className="carrito-section-cart">
-            <div>this is section about checkout main</div>
+            <header className="payment-methods">
+              <div>
+                <CreditCard />
+                <p>Tarjeta</p>
+              </div>
+              <div>
+                <img src={Nequi} alt=""/>
+                <p>Nequi</p>
+              </div>
+              <div>
+                <img src={Pse} alt=""/>
+                <p>PSE</p>
+              </div>
+            </header>
           </section>
-          <ResumenCompra isCheckout={true}/>
+          <ResumenCompra isCheckout={true} />
         </div>
       </main>
       <footer>
