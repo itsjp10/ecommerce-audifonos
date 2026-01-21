@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "../styles/metodos.css";
 import visa_card from "../images/tarjetas/visa.webp";
+import mastercard_card from "../images/tarjetas/mastercard.png";
+import amex_card from "../images/tarjetas/amex.png";
 
 export function Tarjeta() {
   const [cardNumber, setCardNumber] = useState("");
@@ -24,8 +26,8 @@ export function Tarjeta() {
 
   const franquicia = {
     visa: visa_card,
-    mastercard: visa_card,
-    amex: visa_card,
+    mastercard: mastercard_card,
+    amex: amex_card,
   };
 
   const formatCardNumber = (value) => {
@@ -84,12 +86,19 @@ export function Tarjeta() {
             inputMode="numeric"
           />
           <div
-            className={brand && brand !== "unknown" ? "franquicia-wrapper" : ""}
+            className={
+              brand && brand !== "unknown"
+                ? "franquicia-wrapper"
+                : "franquicia-wrapper-fijo"
+            }
           >
-            <img className="franquicia-img" src={franquicia[brand]} alt="" />
+            <img
+              className={brand && brand !== "unknown" ? "franquicia-img" : ""}
+              src={franquicia[brand]}
+              alt=""
+            />
           </div>
         </div>
-        <small className="brand">Franquicia: {brand}</small>
       </div>
 
       {/* Nombre en la tarjeta */}
