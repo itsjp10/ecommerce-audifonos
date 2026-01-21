@@ -1,3 +1,14 @@
+.card-form,
+.card-form * {
+  box-sizing: border-box;
+}
+
+.card-form input,
+.card-form select {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+}
+
 .card-form {
   max-width: 380px;
   margin: 0 auto;
@@ -34,7 +45,9 @@
   border: 1px solid #d0d5dd;
   font-size: 14px;
   outline: none;
-  transition: border 0.2s, box-shadow 0.2s;
+  transition:
+    border 0.2s,
+    box-shadow 0.2s;
 }
 
 .field input:focus,
@@ -78,7 +91,9 @@
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
 }
 
 .pay-button:hover {
