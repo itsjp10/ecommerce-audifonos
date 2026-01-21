@@ -1,0 +1,51 @@
+/*Estilos para checkout*/
+
+.checkout-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.checkout-section-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 370px;
+  
+
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+
+  padding: 20px;
+  gap: 15px;
+}
+
+.payment-methods {
+  display: flex;
+  justify-content: space-between;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    padding: 5px;
+
+    width: 105px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    img {
+      width: 24px;
+    }
+  }
+}
+
+.payment-methods .method-selected {
+  outline: 1px solid #4c82c6;
+}
+
+

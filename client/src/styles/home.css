@@ -686,33 +686,3 @@ body {
   align-items: flex-start;
 }
 
-
-/*Estilos para checkout*/
-
-.payment-methods{
-  display: flex;
-  gap: 5px;
-
-  div{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-
-    padding: 5px;
-
-    width: 100px;
-    border: 1px solid #d1d5db;
-    border-radius: 10px;
-    font-size: 14px;
-    cursor: pointer;
-    img{
-      width: 24px;
-    }
-  }
-}
-
-.payment-methods .method-selected{
-  outline: 1px solid #4c82c6;
-}
-
-

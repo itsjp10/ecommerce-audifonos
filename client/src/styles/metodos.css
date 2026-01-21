@@ -1,3 +1,10 @@
+:root {
+  --color-primario: #fbd5e5; /* Un azul vibrante */
+  --color-secundario: #d5fbeb; /* Un gris neutro */
+  --color-texto-main: #2f3132;
+  --color-badge: #9274c7;
+}
+
 .card-form,
 .card-form * {
   box-sizing: border-box;
@@ -74,6 +81,22 @@ label {
   }
 }
 
+.field-cuotas {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+
+  select{
+    width: 100%;
+    border: none;
+    outline: 1px solid #d1d5db;
+    border-radius: 5px;
+    padding: 5px;
+  }
+}
+
 .row-exp-cvc{
   width: 100%;
   display: grid;
@@ -84,7 +107,7 @@ label {
 .row-type-doc{
   width: 100%;
   display: grid;
-  grid-template-columns: 2fr 3fr;
+  grid-template-columns: 4fr 5fr;
   gap: 15px;
 
 }
@@ -92,7 +115,7 @@ label {
 .row-cod-cel{
   width: 100%;
   display: grid;
-  grid-template-columns: 2fr 3fr;
+  grid-template-columns: 4fr 5fr;
   gap: 15px;
 }
 
@@ -132,4 +155,17 @@ label {
   border-radius: 5px;
   padding-top: 0px;
   margin-top: none;
+}
+
+
+.pay-button{
+  background-color: var(--color-primario);
+  border: none;
+  border-radius: 10px;
+  color: #2f3132;
+
+  font-weight: 600;
+  padding: 10px;
+  cursor: pointer;
+
 }

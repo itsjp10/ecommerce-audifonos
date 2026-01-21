@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../styles/home.css";
+import "../styles/checkout.css";
 import Header from "../components/header";
 import ResumenCompra from "../components/resumenCompra";
 import { useCart } from "../context/cartContext";
@@ -32,33 +33,37 @@ export default function Checkout({ onLogout }) {
       <Header />
       <main className="cart-page-wrapper">
         <div className="cart-page-content">
-          <section className="carrito-section-cart">
-            <header className="payment-methods">
-              <div
-                className={seleccionado === "tarjeta" ? "method-selected" : ""}
-                onClick={() => setSeleccionado("tarjeta")}
-              >
-                <CreditCard />
-                <p>Tarjeta</p>
-              </div>
-              <div
-                className={seleccionado === "nequi" ? "method-selected" : ""}
-                onClick={() => setSeleccionado("nequi")}
-              >
-                <img src={Nequi_img} alt="" />
-                <p>Nequi</p>
-              </div>
-              <div
-                className={seleccionado === "pse" ? "method-selected" : ""}
-                onClick={() => setSeleccionado("pse")}
-              >
-                <img src={Pse_img} alt="" />
-                <p>PSE</p>
-              </div>
-            </header>
-            <article className="form-payment-method">
-              {metodosPago[seleccionado] || null}
-            </article>
+          <section className="checkout-section">
+            <div className="checkout-section-wrapper">
+              <header className="payment-methods">
+                <div
+                  className={
+                    seleccionado === "tarjeta" ? "method-selected" : ""
+                  }
+                  onClick={() => setSeleccionado("tarjeta")}
+                >
+                  <CreditCard />
+                  <p>Tarjeta</p>
+                </div>
+                <div
+                  className={seleccionado === "nequi" ? "method-selected" : ""}
+                  onClick={() => setSeleccionado("nequi")}
+                >
+                  <img src={Nequi_img} alt="" />
+                  <p>Nequi</p>
+                </div>
+                <div
+                  className={seleccionado === "pse" ? "method-selected" : ""}
+                  onClick={() => setSeleccionado("pse")}
+                >
+                  <img src={Pse_img} alt="" />
+                  <p>PSE</p>
+                </div>
+              </header>
+              <article className="form-payment-method">
+                {metodosPago[seleccionado] || null}
+              </article>
+            </div>
           </section>
           <ResumenCompra isCheckout={true} />
         </div>
