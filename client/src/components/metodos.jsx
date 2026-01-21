@@ -101,22 +101,12 @@ export function Tarjeta() {
         </div>
       </div>
 
-      {/* Nombre en la tarjeta */}
-      <div className="field">
-        <label>Nombre en la tarjeta</label>
-        <input
-          type="text"
-          placeholder="Como aparece en la tarjeta"
-          value={cardName}
-          onChange={(e) => setCardName(e.target.value.toUpperCase())}
-        />
-      </div>
-
       {/* Expiración y CVC */}
-      <div className="row">
+      <div className="row-exp-cvc">
         <div className="field">
           <label>Expiración</label>
           <input
+            className="input-data-cardForm"
             type="text"
             placeholder="MM/YY"
             value={expiry}
@@ -129,6 +119,7 @@ export function Tarjeta() {
         <div className="field">
           <label>CVC</label>
           <input
+            className="input-data-cardForm"
             type="text"
             placeholder={brand === "amex" ? "4 dígitos" : "3 dígitos"}
             value={cvc}
@@ -138,13 +129,25 @@ export function Tarjeta() {
         </div>
       </div>
 
+      {/* Nombre en la tarjeta */}
+      <div className="field">
+        <label>Nombre en la tarjeta</label>
+        <input
+          className="input-data-cardForm"
+          type="text"
+          placeholder="Como aparece en la tarjeta"
+          value={cardName}
+          onChange={(e) => setCardName(e.target.value.toUpperCase())}
+        />
+      </div>
+
       {/* Documento */}
-      <div className="row">
-        <div className="field">
+      <div className="row-type-doc">
+        <div className="field-type">
           <label>Tipo de documento</label>
           <select value={docType} onChange={(e) => setDocType(e.target.value)}>
-            <option value="cc">Cédula de ciudadanía</option>
-            <option value="ce">Cédula de extranjería</option>
+            <option value="cc">CC</option>
+            <option value="ce">CE</option>
             <option value="nit">NIT</option>
             <option value="pp">Pasaporte</option>
           </select>
@@ -153,8 +156,9 @@ export function Tarjeta() {
         <div className="field">
           <label>Número de documento</label>
           <input
+            className="input-data-cardForm"
             type="text"
-            placeholder="Número de identificación"
+            placeholder="Número identificación"
             value={docNumber}
             onChange={(e) => setDocNumber(e.target.value.replace(/\D/g, ""))}
           />
@@ -162,9 +166,9 @@ export function Tarjeta() {
       </div>
 
       {/* Celular */}
-      <div className="field">
-        <label>Celular</label>
-        <div className="phone-field">
+      <div className="row-cod-cel">
+        <div className="field-code">
+          <label>Código</label>
           <select
             className="country-code"
             value={countryCode}
@@ -176,8 +180,12 @@ export function Tarjeta() {
             <option value="+51">🇵🇪 +51</option>
             <option value="+1">🇺🇸 +1</option>
           </select>
+        </div>
 
+        <div className="field">
+          <label>Celular</label>
           <input
+            className="input-data-cardForm"
             type="text"
             placeholder="Número de celular"
             value={phone}
