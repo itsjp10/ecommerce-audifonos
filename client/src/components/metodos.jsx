@@ -3,7 +3,7 @@ import "../styles/metodos.css";
 import visa_card from "../images/tarjetas/visa.webp";
 import mastercard_card from "../images/tarjetas/mastercard.png";
 import amex_card from "../images/tarjetas/amex.png";
-import { Lock } from 'lucide-react';
+import { LockKeyhole } from "lucide-react";
 
 export function Tarjeta() {
   const [cardNumber, setCardNumber] = useState("");
@@ -212,7 +212,9 @@ export function Tarjeta() {
 
       <button type="submit" className="pay-button">
         Pagar ahora
-        <span><Lock /></span>
+        <span>
+          <LockKeyhole width={16} />
+        </span>
       </button>
     </form>
   );

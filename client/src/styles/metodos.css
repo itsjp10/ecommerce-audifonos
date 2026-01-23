@@ -159,6 +159,9 @@ label {
 
 
 .pay-button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--color-primario);
   border: none;
   border-radius: 10px;
@@ -168,4 +171,10 @@ label {
   padding: 10px;
   cursor: pointer;
 
+  position: relative;
+
+  span{
+    position: absolute;
+    right: 12px;
+  }
 }
