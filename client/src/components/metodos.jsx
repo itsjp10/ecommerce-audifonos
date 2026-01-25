@@ -4,6 +4,7 @@ import visa_card from "../images/tarjetas/visa.webp";
 import mastercard_card from "../images/tarjetas/mastercard.png";
 import amex_card from "../images/tarjetas/amex.png";
 import { LockKeyhole } from "lucide-react";
+import { tokenizar } from "../services/tokenizar";
 
 export function Tarjeta() {
   const [cardNumber, setCardNumber] = useState("");
@@ -18,11 +19,64 @@ export function Tarjeta() {
   const [phone, setPhone] = useState("");
   const [installments, setInstallments] = useState("1");
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
+
+  const [tokenizada, setTokenizada] = useState("")
+
   const detectBrand = (number) => {
     if (/^4/.test(number)) return "visa";
     if (/^5[1-5]/.test(number)) return "mastercard";
     if (/^3[47]/.test(number)) return "amex";
     return "unknown";
+  };
+
+  const parseExpDate = (value) => {
+    if (!value || !value.includes("/")) {
+      return { exp_month: null, exp_year: null };
+    }
+
+    const [month, year] = value.split("/");
+
+    // Normalizamos
+    const exp_month = month.padStart(2, "0");
+    const exp_year = year.length === 2 ? year : year.slice(-2);
+
+    return { exp_month, exp_year };
+  };
+
+  const handleTokenizar = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    const { exp_month, exp_year } = parseExpDate(expiry);
+    if (!exp_month || !exp_year) {
+      setError("Fecha de expiración inválida");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const res = await tokenizar({
+        number: cardNumber.replace(/\s+/g, ""),
+        cvc,
+        exp_month,
+        exp_year,
+        card_holder: cardName,
+      });
+
+      if (res.status === "CREATED") {
+        setSuccess(true);
+        setTokenizada(res.data.id)
+      } else {
+        setError(res.message || "No se pudo tokenizar la tarjeta");
+      }
+    } catch (err) {
+      setError(err.message || "Error en el registro");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const franquicia = {
@@ -210,13 +264,15 @@ export function Tarjeta() {
         </select>
       </div>
 
-      <button type="submit" className="pay-button">
+      <button type="button" className="pay-button" onClick={handleTokenizar}>
         Pagar ahora
         <span>
           <LockKeyhole width={16} />
         </span>
       </button>
+      <span>{tokenizada}</span>
     </form>
+    
   );
 }
 

@@ -12,6 +12,10 @@ import RegisterRoutes from "./src/routes/register.js";
 import authRoutes from "./src/routes/auth.js";
 import cartRoutes from "./src/routes/cart.js";
 
+//pagos routes
+import transactionRoutes from "./src/routes/transaction.js";
+
+
 import { requireAuth } from "./src/middlewares/requireAuth.js";
 
 //settings
@@ -37,6 +41,8 @@ app.use(ProductRoutes);
 app.use(OrderRoutes);
 app.use(authRoutes);
 app.use(cartRoutes);
+app.use(transactionRoutes);
+
 
 //server running
 app.listen(app.get("port"));
