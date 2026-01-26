@@ -23,7 +23,9 @@ export function Tarjeta() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
-  const [tokenizada, setTokenizada] = useState("")
+  const [tokenizada, setTokenizada] = useState("");
+
+  const [cardInvalid, setCardInvalid] = useState(false);
 
   const detectBrand = (number) => {
     if (/^4/.test(number)) return "visa";
@@ -44,6 +46,28 @@ export function Tarjeta() {
     const exp_year = year.length === 2 ? year : year.slice(-2);
 
     return { exp_month, exp_year };
+  };
+
+  const isValidCardNumber = (number) => {
+    const digits = number.replace(/\D/g, "");
+
+    let sum = 0;
+    let shouldDouble = false;
+
+    // Recorremos de derecha a izquierda
+    for (let i = digits.length - 1; i >= 0; i--) {
+      let digit = parseInt(digits[i], 10);
+
+      if (shouldDouble) {
+        digit *= 2;
+        if (digit > 9) digit -= 9;
+      }
+
+      sum += digit;
+      shouldDouble = !shouldDouble;
+    }
+
+    return sum % 10 === 0;
   };
 
   const handleTokenizar = async (e) => {
@@ -68,7 +92,7 @@ export function Tarjeta() {
 
       if (res.status === "CREATED") {
         setSuccess(true);
-        setTokenizada(res.data.id)
+        setTokenizada(res.data.id);
       } else {
         setError(res.message || "No se pudo tokenizar la tarjeta");
       }
@@ -104,8 +128,19 @@ export function Tarjeta() {
   };
 
   const handleCardNumberChange = (e) => {
-    const formatted = formatCardNumber(e.target.value);
+    const raw = e.target.value;
+    const formatted = formatCardNumber(raw);
+    const clean = formatted.replace(/\s+/g, "").replace(/\D/g, "");
+
     setCardNumber(formatted);
+
+    // Validamos solo cuando tenga longitud típica
+    if (clean.length >= 15) {
+      const valid = isValidCardNumber(clean);
+      setCardInvalid(!valid);
+    } else {
+      setCardInvalid(false);
+    }
   };
 
   const formatExpiry = (value) => {
@@ -131,7 +166,7 @@ export function Tarjeta() {
       {/* Número de tarjeta */}
       <div className="field">
         <label>Número de tarjeta</label>
-        <div className="num-tarjeta">
+        <div className={`num-tarjeta ${cardInvalid ? "input-error" : ""}`}>
           <input
             className="input-num-tarjeta"
             type="text"
@@ -154,6 +189,11 @@ export function Tarjeta() {
             />
           </div>
         </div>
+        {cardInvalid && (
+          <>
+            <small style={{ color: "red" }}>Número de tarjeta inválido</small>
+          </>
+        )}
       </div>
 
       {/* Expiración y CVC */}
@@ -272,7 +312,6 @@ export function Tarjeta() {
       </button>
       <span>{tokenizada}</span>
     </form>
-    
   );
 }
 

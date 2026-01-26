@@ -138,6 +138,9 @@ label {
     object-fit: contain; /* Cubre todo el contenedor sin deformar */
   }
 }
+.input-error{
+  border: 1px solid red;
+}
 
 .franquicia-wrapper-fijo {
   /* Clase para reservar el espacio del wrapper de la tarjeta */
